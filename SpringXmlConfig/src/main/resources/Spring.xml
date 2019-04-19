@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!--################################ 构造器注入开始 #####################################-->
+    <!--=================下面是constructor-arg的用法====================-->
+    <!--创建一个bean，注入字面量-->
+    <!--<bean id="math" class="lrf.spring.duty.MathImpl">-->
+        <!--<constructor-arg value="排序"/>-->
+    <!--</bean>-->
+
+    <!--创建一个bean，引用一个bean-->
+    <!--<bean class="lrf.spring.handle.TeacherImpl">-->
+        <!--<constructor-arg ref="math"/>-->
+    <!--</bean>-->
+
+
+    <!--=================下面是c:的用法====================-->
+    <!--创建一个bean，注入字面量-->
+    <!--第一种，常用-->
+    <!--<bean id="math" class="lrf.spring.duty.MathImpl" c:algorithm="排序"/>-->
+    <!--第二种-->
+    <!--<bean id="math" class="lrf.spring.duty.MathImpl" c:_0="排序" />-->
+    <!--第三种,当构造函数参数只有一个的时候，可用这种，但是我用的spring版本不支持了。4.3.18.RELEASE-->
+    <!--<bean id="math" class="lrf.spring.duty.MathImpl" c:_="排序" />-->
+
+
+    <!--创建一个bean，引用一个bean-->
+    <!--第一种,常用-->
+    <!--<bean class="lrf.spring.handle.TeacherImpl"-->
+          <!--c:math-ref="math"-->
+          <!--c:chinese-ref="chinese"-->
+    <!--/>-->
+    <!--第二种-->
+    <!--<bean class="lrf.spring.handle.TeacherImpl"-->
+          <!--c:_0-ref="math"-->
+          <!--c:_1-ref="chinese"-->
+    <!--/>-->
+    <!--第三种，当构造函数参数只有一个的时候，可用这种，但是我用的spring版本不支持了。4.3.18.RELEAS-->
+    <!--<bean class="lrf.spring.handle.TeacherImpl" c:_-ref="math"/>-->
+
+
+    <!--
+        一般来说，c-命名方法比constructor-arg方法简单方便，因此一般情况我们选择c-这种
+        方法，但是，当参数是一个集合类型时，c-是做不到的，只有constructor-arg才能做到
+        下面我们来举例子
+    -->
+    <!--注入字面量-->
+    <!--<bean id="chinese" class="lrf.spring.duty.ChineseImpl">-->
+        <!--<constructor-arg>-->
+            <!--<list>-->
+                <!--<value>李白</value>-->
+                <!--<value>杜甫</value>-->
+                <!--<value>苏轼</value>-->
+            <!--</list>-->
+        <!--</constructor-arg>-->
+    <!--</bean>-->
+    <!--注入bean-->
+    <!--</bean><bean id="chinese" class="lrf.spring.duty.ChineseImpl">-->
+    <!--<constructor-arg>-->
+        <!--<list>-->
+            <!--<ref bean="bean"/>-->
+            <!--<ref bean="bean1"/>-->
+            <!--<ref bean="bean2"/>-->
+        <!--</list>-->
+    <!--</constructor-arg>-->
+
+    <!--以上不仅可以使用list，也可使用set，但是set的重复值都会被省略掉，顺序得不到保证，这两者
+    都可以用来装配List,Set,甚至数组-->
+
+    <!--################################ 构造器注入结束 #####################################-->
+
+
+    <!--################################ 属性注入开始 #####################################-->
+    <!--=================下面是property的用法====================-->
+    <!--创建一个bean，注入字面量-->
+    <bean id="math" class="lrf.spring.duty.MathImpl">
+        <property name="algorithm" value="排序"/>
+    </bean>
+
+    <!--创建一个bean，引用一个bean-->
+    <bean class="lrf.spring.handle.TeacherImpl">
+        <property name="math" ref="math"/>
+        <property name="chinese" ref="chinese"/>
+    </bean>
+
+
+    <!--=================下面是p-的用法====================-->
+    <!--创建一个bean，注入字面量,只有一种，因为一个方法参数只能有一个-->
+    <!--<bean id="math" class="lrf.spring.duty.MathImpl" p:algorithm="排序"/>-->
+
+    <!--创建一个bean，引用一个bean-->
+    <!--<bean class="lrf.spring.handle.TeacherImpl"-->
+          <!--p:math-ref="math"-->
+          <!--p:chinese-ref="chinese"-->
+    <!--/>-->
+
+
+    <!--
+        与上面的一样。一般来说，-命名方法比property方法简单方便，因此一般情况我们选择p-这种
+        方法，但是，当参数是一个集合类型时，-是做不到的，只有property才能做到
+        下面我们来举例子
+    -->
+    <!--&lt;!&ndash;注入字面量&ndash;&gt;-->
+    <bean id="chinese" class="lrf.spring.duty.ChineseImpl">
+        <property name="poetry">
+            <list>
+                <value>李白</value>
+                <value>杜甫</value>
+                <value>苏轼</value>
+            </list>
+        </property>
+    </bean>
+    <!--注入bean-->
+    <!--<bean id="chinese" class="lrf.spring.duty.ChineseImpl">-->
+        <!--<property name="poetry">-->
+            <!--<list>-->
+                <!--<ref bean="bean"/>-->
+                <!--<ref bean="bean1"/>-->
+                <!--<ref bean="bean2"/>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
+    <!--以上不仅可以使用list，也可使用set，但是set的重复值都会被省略掉，顺序得不到保证，这两者
+    都可以用来装配List,Set,甚至数组-->
+
+    <!--################################ 属性注入结束 #####################################-->
+
+
+</beans>
